@@ -4,7 +4,7 @@ Este proyecto corresponde a la **Entrega 1** del curso de Backend.
 Consigna: desarrollar un servidor en **Node.js + Express** que gestione productos y carritos, con persistencia en el sistema de archivos.
 
 ---
-
+```
 ## Estructura del proyecto
 backend-tp-entrega1/
 ├─ package.json
@@ -23,7 +23,7 @@ backend-tp-entrega1/
    │  └─ CartManager.js
    └─ utils/
       └─ fileStore.js
-
+```
 ---
 
 ## Instrucciones de uso
@@ -36,7 +36,7 @@ npm i
 
 ### 3. Ejecutar servidor
 npm run dev   # con nodemon
-# o
+
 npm start     # con node
 
 Servidor disponible en: http://localhost:8080
@@ -49,6 +49,7 @@ Servidor disponible en: http://localhost:8080
 - **GET /** → lista todos los productos.
 - **GET /:pid** → obtiene un producto por ID.
 - **POST /** → crea un producto (id autogenerado). Ejemplo body:
+```
 {
   "title": "Teclado Mecánico",
   "description": "Switches rojos",
@@ -59,6 +60,7 @@ Servidor disponible en: http://localhost:8080
   "category": "perifericos",
   "thumbnails": ["/imgs/teclado.png"]
 }
+```
 - **PUT /:pid** → actualiza un producto (no se puede cambiar el id).
 - **DELETE /:pid** → elimina un producto.
 
@@ -78,6 +80,7 @@ Servidor disponible en: http://localhost:8080
 4. **GET /api/carts/:cid** → listar productos del carrito.
 
 Ejemplo de respuesta:
+```
 {
   "status": "success",
   "payload": [
@@ -87,7 +90,7 @@ Ejemplo de respuesta:
     }
   ]
 }
-
+```
 ---
 
 ## Checklist de la consigna
