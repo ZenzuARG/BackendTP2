@@ -36,7 +36,7 @@ npm i
 
 ### 3. Ejecutar servidor
 npm run dev   # con nodemon
-# o
+
 npm start     # con node
 
 Servidor disponible en: http://localhost:8080
