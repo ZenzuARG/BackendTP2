@@ -5,16 +5,6 @@ Consigna: desarrollar un servidor en **Node.js + Express** que gestione producto
 
 ---
 
-## ¿Qué hay que entregar?
-- **Repositorio en GitHub** con:
-  - Código fuente completo del proyecto (sin `node_modules`).
-  - `package.json` con dependencias.
-  - `.gitignore` configurado.
-  - `README.md` explicativo.
-- No se requiere front-end visual, las pruebas se hacen con **Postman** o similar.
-
----
-
 ## Estructura del proyecto
 backend-tp-entrega1/
 ├─ package.json
