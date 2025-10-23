@@ -142,32 +142,6 @@ Desde la vista `/realtimeproducts` podés:
 
 ---
 
-## 🎨 Estilo visual
-
-* Tema oscuro moderno con hover effects y diseño tipo *card grid*.
-* Totalmente responsive.
-* Footer personalizado:
-
-  ```
-  ⚙️ Proyecto Backend — Entrega 2 | Desarrollado por ZenzuARG © 2025
-  ```
-
----
-
-## 🧾 Checklist de corrección (Coderhouse)
-
-| Aspecto         | Estado      |
-| --------------- | ----------- |
-| Productos       | ✅ Realizado |
-| Websocket       | ✅ Realizado |
-| Rutas separadas | ✅ Realizado |
-| Persistencia    | ✅ Correcta  |
-| Estilo visual   | ✅ Extra     |
-
-**Nivel obtenido esperado:** 🟢 Óptimo (100 pts)
-
----
-
 ## 👨‍💻 Autor
 
 **Zenon Zuliani (ZenzuARG)**
