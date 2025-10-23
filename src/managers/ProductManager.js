@@ -8,13 +8,9 @@ export default class ProductManager {
     ensureFile(this.file);
   }
 
-  #newId() {
-    return crypto.randomUUID(); // evita colisiones
-  }
+  #newId() { return crypto.randomUUID(); }
 
-  async getAll() {
-    return readJSON(this.file);
-  }
+  async getAll() { return readJSON(this.file); }
 
   async getById(id) {
     const list = await this.getAll();
@@ -23,23 +19,18 @@ export default class ProductManager {
 
   #validate(body, { partial = false } = {}) {
     const allowed = ['title', 'description', 'code', 'price', 'status', 'stock', 'category', 'thumbnails'];
-    const payload = {};
-
     for (const k of Object.keys(body || {})) {
-      if (!allowed.includes(k)) {
-        throw new Error(`Campo no permitido: ${k}`);
-      }
+      if (!allowed.includes(k)) throw new Error(`Campo no permitido: ${k}`);
     }
-
     if (!partial) {
-      const required = ['title', 'description', 'code', 'price', 'stock', 'category'];
+      const required = ['title','description','code','price','stock','category'];
       for (const r of required) {
         if (body[r] === undefined || body[r] === null || body[r] === '') {
           throw new Error(`Falta campo requerido: ${r}`);
         }
       }
     }
-
+    const payload = {};
     payload.title = body.title?.toString();
     payload.description = body.description?.toString();
     payload.code = body.code?.toString();
@@ -51,26 +42,16 @@ export default class ProductManager {
       if (!Array.isArray(body.thumbnails)) throw new Error('thumbnails debe ser arreglo de strings');
       payload.thumbnails = body.thumbnails.map(String);
     }
-
     return payload;
   }
 
   async create(body) {
     const list = await this.getAll();
     const payload = this.#validate(body);
-
-    // Defaults
     payload.status = payload.status ?? true;
     payload.thumbnails = payload.thumbnails ?? [];
-
-    // id autogenerado
+    if (list.some(p => p.code === payload.code)) throw new Error('Ya existe un producto con ese code');
     const prod = { id: this.#newId(), ...payload };
-
-    // Evitar duplicación por code (opcional pero útil)
-    if (list.some(p => p.code === prod.code)) {
-      throw new Error('Ya existe un producto con ese code');
-    }
-
     list.push(prod);
     await writeJSON(this.file, list);
     return prod;
@@ -80,10 +61,7 @@ export default class ProductManager {
     const list = await this.getAll();
     const idx = list.findIndex(p => p.id === id);
     if (idx === -1) return null;
-
-    // Prohibir cambios de id
     if ('id' in body) delete body.id;
-
     const payload = this.#validate(body, { partial: true });
     const updated = { ...list[idx], ...payload };
     list[idx] = updated;

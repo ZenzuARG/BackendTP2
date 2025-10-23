@@ -1,0 +1,7 @@
+body{font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:20px;background:#111;color:#eee}
+a{color:#9ad} nav a{margin-right:8px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+input,button{padding:8px;margin:4px 0;border-radius:8px;border:1px solid #444;background:#222;color:#eee}
+button{cursor:pointer}
+ul#list{list-style:disc;padding-left:20px}
+code{background:#222;padding:2px 4px;border-radius:4px}

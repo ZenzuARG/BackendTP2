@@ -17,7 +17,6 @@ export async function readJSON(filePath) {
 }
 
 export async function writeJSON(filePath, data) {
-  // Escribe bonito y de forma atómica
   const tmp = `${filePath}.tmp`;
   await fs.writeFile(tmp, JSON.stringify(data, null, 2));
   await fs.rename(tmp, filePath);

@@ -1,0 +1,10 @@
+<h2>Home – Lista de productos</h2>
+<ul>
+  {{#if products.length}}
+    {{#each products}}
+      <li><strong>{{title}}</strong> – ${{price}} – stock: {{stock}} – id: <code>{{id}}</code></li>
+    {{/each}}
+  {{else}}
+    <li>No hay productos aún.</li>
+  {{/if}}
+</ul>
