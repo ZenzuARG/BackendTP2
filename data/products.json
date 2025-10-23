@@ -1,1 +1,15 @@
-[]
+[
+  {
+    "id": "b2ff1627-25f8-4644-9202-0b160022549f",
+    "title": "Teclado Mecánico",
+    "description": "Switches rojos",
+    "code": "KB-RED-001",
+    "price": 89999.99,
+    "status": true,
+    "stock": 12,
+    "category": "perifericos",
+    "thumbnails": [
+      "/imgs/teclado.png"
+    ]
+  }
+]
