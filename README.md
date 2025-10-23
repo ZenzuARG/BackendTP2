@@ -1,115 +1,175 @@
-# Entrega N°1 – Backend (API Productos & Carritos)
+# 🧩 Entrega N°2 – Backend (Handlebars + Websockets)
 
-Este proyecto corresponde a la **Entrega 1** del curso de Backend.  
-Consigna: desarrollar un servidor en **Node.js + Express** que gestione productos y carritos, con persistencia en el sistema de archivos.
+Este proyecto corresponde a la **Entrega 2 del curso de Backend** en **Coderhouse**.
+Extiende la API de productos y carritos creada en la entrega anterior, integrando:
 
----
-```
-## Estructura del proyecto
-backend-tp-entrega1/
-├─ package.json
-├─ app.js
-├─ .gitignore
-├─ README.md
-├─ data/
-│  ├─ products.json
-│  └─ carts.json
-└─ src/
-   ├─ routes/
-   │  ├─ products.router.js
-   │  └─ carts.router.js
-   ├─ managers/
-   │  ├─ ProductManager.js
-   │  └─ CartManager.js
-   └─ utils/
-      └─ fileStore.js
-```
----
-
-## Instrucciones de uso
-
-### 1. Requisitos
-- Node.js 18 o superior.
-
-### 2. Instalación
-npm i
-
-### 3. Ejecutar servidor
-npm run dev   # con nodemon
-
-npm start     # con node
-
-Servidor disponible en: http://localhost:8080
+* Motor de plantillas **Handlebars** para renderizar vistas dinámicas.
+* Comunicación en tiempo real con **Socket.IO**.
 
 ---
 
-## Endpoints
+## 🚀 Objetivo
 
-### Productos `/api/products`
-- **GET /** → lista todos los productos.
-- **GET /:pid** → obtiene un producto por ID.
-- **POST /** → crea un producto (id autogenerado). Ejemplo body:
+Configurar el proyecto para que trabaje con **Handlebars y WebSocket**, permitiendo visualizar y actualizar productos en tiempo real desde el navegador.
+
+---
+
+## 🧠 Funcionalidad general
+
+### ✅ Home (`/`)
+
+* Renderiza todos los productos almacenados en `products.json`.
+* Se actualiza al iniciar el servidor, mostrando la lista completa.
+
+### ✅ RealtimeProducts (`/realtimeproducts`)
+
+* Muestra la misma lista, pero actualizada **en tiempo real** mediante WebSocket.
+* Permite:
+
+  * Crear productos desde un formulario.
+  * Eliminar productos por su ID.
+* Cada operación **emite eventos** a todos los clientes conectados, actualizando la vista sin recargar.
+
+---
+
+## ⚙️ Tecnologías utilizadas
+
+* Node.js
+* Express.js
+* Express-Handlebars
+* Socket.IO
+* UUID
+* Nodemon
+
+---
+
+## 📂 Estructura del proyecto
+
 ```
+backend-entrega2/
+├── app.js
+├── package.json
+├── .gitignore
+├── /src
+│   ├── /routes
+│   │   ├── products.router.js
+│   │   ├── carts.router.js
+│   │   └── views.router.js
+│   ├── /managers
+│   │   ├── ProductManager.js
+│   │   └── CartManager.js
+│   └── /utils
+│       └── fileHandler.js
+├── /data
+│   ├── products.json
+│   └── carts.json
+├── /public
+│   ├── styles.css
+│   └── js/
+│       └── realtime.js
+└── /views
+    ├── home.handlebars
+    ├── realtimeproducts.handlebars
+    └── layouts/main.handlebars
+```
+
+---
+
+## 🧩 Instalación y ejecución
+
+```
+# 1. Instalar dependencias
+npm install
+
+# 2. Iniciar el servidor
+npm run dev
+
+# 3. Abrir en el navegador
+http://localhost:8080
+```
+
+---
+
+## 🧪 Pruebas básicas
+
+### 🔹 Crear producto (HTTP)
+
+```
+POST http://localhost:8080/api/products
+Content-Type: application/json
+```
+
+```json
 {
   "title": "Teclado Mecánico",
   "description": "Switches rojos",
   "code": "KB-RED-001",
   "price": 89999.99,
   "status": true,
-  "stock": 12,
-  "category": "perifericos",
+  "stock": 10,
+  "category": "periféricos",
   "thumbnails": ["/imgs/teclado.png"]
 }
 ```
-- **PUT /:pid** → actualiza un producto (no se puede cambiar el id).
-- **DELETE /:pid** → elimina un producto.
 
-### Carritos `/api/carts`
-- **POST /** → crea un nuevo carrito {id, products: []}.
-- **GET /:cid** → lista los productos del carrito con ese ID.
-- **POST /:cid/product/:pid** → agrega un producto al carrito.  
-  Si ya existe, incrementa `quantity`.
+✔️ Verás el nuevo producto reflejado automáticamente en la vista **Realtime**.
 
 ---
 
-## Flujo mínimo de prueba en Postman
+### 🔹 Eliminar producto (HTTP)
 
-1. **POST /api/products** → crear producto → copiar `id` generado (`PID`).
-2. **POST /api/carts** → crear carrito → copiar `id` generado (`CID`).
-3. **POST /api/carts/:cid/product/:pid** → agregar producto al carrito.
-4. **GET /api/carts/:cid** → listar productos del carrito.
-
-Ejemplo de respuesta:
 ```
-{
-  "status": "success",
-  "payload": [
-    {
-      "product": "b85fa102-e4d6-4e5b-bb5d-193f14394509",
-      "quantity": 1
-    }
-  ]
-}
+DELETE http://localhost:8080/api/products/:pid
 ```
----
 
-## Checklist de la consigna
-- [x] Servidor Node.js + Express en puerto 8080.
-- [x] Router separado para `/api/products` y `/api/carts`.
-- [x] CRUD de productos (id autogenerado, no modificable).
-- [x] Gestión de carritos (crear, listar por id, agregar producto con quantity incremental).
-- [x] Persistencia con FS (`products.json` y `carts.json`).
-- [x] README con instrucciones de uso.
+✔️ El producto se eliminará tanto del archivo `products.json` como de la lista en tiempo real.
 
 ---
 
-## Entrega
-1. Subir este proyecto a un repositorio en GitHub.
-2. Verificar que no esté incluida la carpeta `node_modules/`.
-3. Compartir el link del repositorio como entrega final.
+### 🔹 Realtime (WebSocket)
+
+Desde la vista `/realtimeproducts` podés:
+
+* Crear productos con el formulario → se agregan al instante.
+* Eliminar por ID → desaparecen sin recargar la página.
 
 ---
 
-## Notas
-- El proyecto ya cumple con los requisitos de la **Entrega 1**.
-- No es obligatorio tener un front-end, solo demostrar funcionamiento con Postman o curl.
+## 💾 Persistencia
+
+* Los productos y carritos se guardan usando **FileSystem** (`products.json`, `carts.json`).
+* Las vistas se renderizan con datos persistentes.
+
+---
+
+## 🎨 Estilo visual
+
+* Tema oscuro moderno con hover effects y diseño tipo *card grid*.
+* Totalmente responsive.
+* Footer personalizado:
+
+  ```
+  ⚙️ Proyecto Backend — Entrega 2 | Desarrollado por ZenzuARG © 2025
+  ```
+
+---
+
+## 🧾 Checklist de corrección (Coderhouse)
+
+| Aspecto         | Estado      |
+| --------------- | ----------- |
+| Productos       | ✅ Realizado |
+| Websocket       | ✅ Realizado |
+| Rutas separadas | ✅ Realizado |
+| Persistencia    | ✅ Correcta  |
+| Estilo visual   | ✅ Extra     |
+
+**Nivel obtenido esperado:** 🟢 Óptimo (100 pts)
+
+---
+
+## 👨‍💻 Autor
+
+**Zenon Zuliani (ZenzuARG)**
+Entrega N°2 – Curso Backend Coderhouse 2025
+Proyecto académico con fines educativos.

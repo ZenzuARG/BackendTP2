@@ -1,10 +1,20 @@
-<h2>Home – Lista de productos</h2>
-<ul>
+<section class="home-container">
+  <h2>🛒 Catálogo de productos</h2>
+
   {{#if products.length}}
-    {{#each products}}
-      <li><strong>{{title}}</strong> – ${{price}} – stock: {{stock}} – id: <code>{{id}}</code></li>
-    {{/each}}
+    <div class="product-grid">
+      {{#each products}}
+        <div class="product-card">
+          <h3>{{title}}</h3>
+          <p class="desc">{{description}}</p>
+          <p><strong>Precio:</strong> ${{price}}</p>
+          <p><strong>Stock:</strong> {{stock}}</p>
+          <p><strong>Categoría:</strong> {{category}}</p>
+          <p><strong>ID:</strong> <code>{{id}}</code></p>
+        </div>
+      {{/each}}
+    </div>
   {{else}}
-    <li>No hay productos aún.</li>
+    <p class="empty">No hay productos aún 😔</p>
   {{/if}}
-</ul>
+</section>
